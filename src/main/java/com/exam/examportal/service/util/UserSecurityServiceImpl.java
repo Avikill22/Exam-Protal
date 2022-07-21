@@ -19,10 +19,10 @@ public class UserSecurityServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		User user = this.userRepository.findByUserName(username);
-		
 		if(user == null) {
 			throw new UsernameNotFoundException("Invalid Credential user not found...");
 		}
+		
 		return user;
 	}
 

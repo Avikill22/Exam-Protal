@@ -22,6 +22,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name= "users")
 public class User implements UserDetails{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -182,14 +186,13 @@ public class User implements UserDetails{
 			set.add(new Authority(userRole.getRole().getRoleName()));
 		});
 		// TODO Auto-generated method stub
-		return null;
+		return set;
 	}
 
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return userName;
 	}
 
 

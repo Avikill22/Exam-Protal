@@ -1,4 +1,4 @@
-package com.exam.examportal.entity;
+ package com.exam.examportal.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
