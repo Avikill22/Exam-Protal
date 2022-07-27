@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "questions")
@@ -27,6 +28,9 @@ public class Question {
 	private String option4;
 	
 	private String answer;
+	
+	@Transient
+	private String givenAnswer;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Quiz quiz;
@@ -158,6 +162,18 @@ public class Question {
 	 */
 	public void setQuiz(Quiz quiz) {
 		this.quiz = quiz;
+	}
+	/**
+	 * @return the givenAnswer
+	 */
+	public String getGivenAnswer() {
+		return givenAnswer;
+	}
+	/**
+	 * @param givenAnswer the givenAnswer to set
+	 */
+	public void setGivenAnswer(String givenAnswer) {
+		this.givenAnswer = givenAnswer;
 	}
 	
 	

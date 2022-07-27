@@ -1,5 +1,7 @@
 package com.exam.examportal.controller;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +56,26 @@ public class QuestionController {
 	@DeleteMapping("/{questionId}")
 	public void deleteQuestion(@PathVariable Long questionId) {
 		this.questionservice.deleteQuestion(questionId);
+	}
+	
+	@PostMapping("/eval-quiz")
+	public ResponseEntity<?> evalQuiz(@RequestBody List<Question> questions){
+		Double marksGot =  0.0;
+		Integer correctAnswer = 0;
+		Integer attempted = 0;
+		for (Question q : questions){
+			Question question = this.questionservice.get(q.getQuesId());
+			if(question.getAnswer().trim().equals(q.getGivenAnswer().trim())) {
+				//correct
+				correctAnswer++;
+				Double marksSingle = Double.parseDouble(questions.get(0).getQuiz().getMaxMarks());
+				marksGot += marksSingle;
+			}
+			if(question.getGivenAnswer() == null || question.getGivenAnswer().trim().equals("")) {
+				attempted++;
+			}
+		}
+		Map<Object, Object> map = Map.of("marksGot", marksGot, "correctAnswer",correctAnswer,"attempted",attempted);
+		return new ResponseEntity<>(map,HttpStatus.OK);
 	}
 }
